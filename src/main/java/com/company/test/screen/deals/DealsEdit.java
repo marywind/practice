@@ -49,17 +49,25 @@ public class DealsEdit extends StandardEditor<Deals> {
                         )
                 )
                 .optional();
-        return existedDeal.isPresent();
+        return (existedDeal.isPresent() && (deal.getLastModifiedDate() == null));
+
     }
     private boolean isLicenseExpired(Deals deal) {
-        Optional<Deals> existedDeal = dataManager.load(Deals.class)
-                .condition(
-                        LogicalCondition.or(
-                                PropertyCondition.greater("return_date_expected", deal.getClient().getLicense_date_expiration()),
-                                PropertyCondition.less("deal_date", deal.getClient().getLicense_date())
-                        )
-                )
-                .optional();
-        return existedDeal.isPresent();
+        return(deal.getClient().getLicense_date_expiration().before(deal.getReturn_date_expected()));
+//        Optional<Deals> existedDeal = dataManager.load(Deals.class)
+//                .condition(
+//                        LogicalCondition.or(
+//                                LogicalCondition.and(
+//                                        PropertyCondition.equal("client.id",deal.getClient().getId()),
+//                                        PropertyCondition.less("deal_date", deal.getClient().getLicense_date())
+//                                ),
+//                                LogicalCondition.and(
+//                                        PropertyCondition.equal("client.id",deal.getClient().getId()),
+//                                        PropertyCondition.greater("return_date_expected", deal.getClient().getLicense_date_expiration())
+//                                )
+//                        )
+//                )
+//                .optional();
+//        return existedDeal.isPresent();
     }
 }
