@@ -1,0 +1,76 @@
+<?xml version="1.0" encoding="UTF-8" standalone="no"?>
+<window xmlns="http://jmix.io/schema/ui/window"
+        xmlns:c="http://jmix.io/schema/ui/jpql-condition"
+        caption="msg://dealsBrowse.caption"
+        focusComponent="dealsesTable">
+    <data readOnly="true">
+        <collection id="dealsesDc"
+                    class="com.company.test.entity.Deals">
+            <fetchPlan extends="_base"/>
+            <loader id="dealsesDl">
+                <query>
+                    <![CDATA[select e from Deals e]]>
+                </query>
+            </loader>
+        </collection>
+    </data>
+    <facets>
+        <dataLoadCoordinator auto="true"/>
+        <screenSettings id="settingsFacet" auto="true"/>
+    </facets>
+    <actions>
+        <action id="lookupSelectAction"
+                caption="msg:///actions.Select"
+                icon="LOOKUP_OK"
+                primary="true"
+                shortcut="${COMMIT_SHORTCUT}"/>
+        <action id="lookupCancelAction"
+                caption="msg:///actions.Cancel"
+                icon="LOOKUP_CANCEL"/>
+    </actions>
+    <dialogMode height="600"
+                width="800"/>
+    <layout expand="dealsesTable" spacing="true">
+        <filter id="filter"
+                dataLoader="dealsesDl">
+            <properties include=".*"/>
+        </filter>
+        <groupTable id="dealsesTable"
+                    width="100%"
+                    dataContainer="dealsesDc"
+                    multiselect="true">
+            <actions>
+                <action id="add" type="add"/>
+                <action id="create" type="create"/>
+                <action id="edit" type="edit"/>
+                <action id="refresh" type="refresh"/>
+                <action id="remove" type="remove"/>
+            </actions>
+            <columns>
+                <group>
+                    <column id="car.id"/>
+                </group>
+                <column id="car.mark"/>
+                <column id="car.type"/>
+                <column id="car.cost"/>
+                <column id="car.rent_cost"/>
+                <column id="deal_date"/>
+                <column id="return_date_expected"/>
+                <column id="return_date_actual"/>
+            </columns>
+            <simplePagination/>
+            <buttonsPanel id="buttonsPanel"
+                          alwaysVisible="true">
+                <button id="addBtn" action="dealsesTable.add"/>
+                <button id="createBtn" action="dealsesTable.create"/>
+                <button id="editBtn" action="dealsesTable.edit"/>
+                <button id="refreshBtn" action="dealsesTable.refresh"/>
+                <button id="removeBtn" action="dealsesTable.remove"/>
+            </buttonsPanel>
+        </groupTable>
+        <hbox id="lookupActions" spacing="true" visible="false">
+            <button action="lookupSelectAction"/>
+            <button action="lookupCancelAction"/>
+        </hbox>
+    </layout>
+</window>
