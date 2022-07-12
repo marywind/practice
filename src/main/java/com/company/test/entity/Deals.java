@@ -21,12 +21,12 @@ import java.util.UUID;
 })
 @Entity
 public class Deals {
-    @InstanceName
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
     private UUID id;
 
+    @InstanceName
     @Column(name = "DEAL_DATE", nullable = false)
     @Temporal(TemporalType.DATE)
     private Date deal_date;

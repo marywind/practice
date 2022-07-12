@@ -18,7 +18,6 @@ import java.util.UUID;
 @Table(name = "CARS")
 @Entity
 public class Cars {
-    @InstanceName
     @JmixGeneratedValue
     @Column(name = "ID", nullable = false)
     @Id
@@ -27,6 +26,7 @@ public class Cars {
     @Column(name = "MARK", nullable = false)
     private String mark;
 
+    @InstanceName
     @Column(name = "TYPE_", nullable = false)
     private String type;
 
